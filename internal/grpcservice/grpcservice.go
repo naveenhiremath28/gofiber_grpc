@@ -3,6 +3,7 @@ package grcpservice
 import (
 	"context"
 	"crud-grpc-gofiber/internal/database/dbservice"
+	"crud-grpc-gofiber/internal/models"
 	userpb "crud-grpc-gofiber/pkg/protocolbuffers"
 	"fmt"
 	"log"
@@ -55,6 +56,26 @@ func (s *UserServer) DeleteUser(ctx context.Context, req *userpb.DeleteUserReque
 	}
 
 	return &userpb.DeleteUserResponse{
+		Status: res,
+	}, nil
+}
+
+func (s *UserServer) UpdateUser(ctx context.Context, req *userpb.UpdateUserRequest) (*userpb.UpdateUserResponse, error) {
+	fmt.Println("\n\n\nreq: ", req)
+	log.Printf("\n\n\nReceived AddUser request: username=%s, email=%s, fullname=%s",
+		req.Username, req.Email, req.FullName)
+	var user models.User
+	user.ID = int(req.Id)
+	user.Username = req.Username
+	user.Email = req.Email
+	user.FullName = req.FullName
+	result := dbservice.UpdateUser(user)
+	res := "Failed to Insert Record...!"
+	if result {
+		res = "Successfully Inserted Record...!"
+	}
+
+	return &userpb.UpdateUserResponse{
 		Status: res,
 	}, nil
 }

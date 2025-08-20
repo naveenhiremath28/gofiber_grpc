@@ -333,6 +333,118 @@ func (x *DeleteUserResponse) GetStatus() string {
 	return ""
 }
 
+type UpdateUserRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Username      string                 `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
+	FullName      string                 `protobuf:"bytes,4,opt,name=full_name,json=fullName,proto3" json:"full_name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateUserRequest) Reset() {
+	*x = UpdateUserRequest{}
+	mi := &file_pkg_protocolbuffers_crud_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateUserRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateUserRequest) ProtoMessage() {}
+
+func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_protocolbuffers_crud_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateUserRequest.ProtoReflect.Descriptor instead.
+func (*UpdateUserRequest) Descriptor() ([]byte, []int) {
+	return file_pkg_protocolbuffers_crud_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *UpdateUserRequest) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *UpdateUserRequest) GetUsername() string {
+	if x != nil {
+		return x.Username
+	}
+	return ""
+}
+
+func (x *UpdateUserRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *UpdateUserRequest) GetFullName() string {
+	if x != nil {
+		return x.FullName
+	}
+	return ""
+}
+
+type UpdateUserResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Status        string                 `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateUserResponse) Reset() {
+	*x = UpdateUserResponse{}
+	mi := &file_pkg_protocolbuffers_crud_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateUserResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateUserResponse) ProtoMessage() {}
+
+func (x *UpdateUserResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_protocolbuffers_crud_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateUserResponse.ProtoReflect.Descriptor instead.
+func (*UpdateUserResponse) Descriptor() ([]byte, []int) {
+	return file_pkg_protocolbuffers_crud_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *UpdateUserResponse) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
 var File_pkg_protocolbuffers_crud_proto protoreflect.FileDescriptor
 
 const file_pkg_protocolbuffers_crud_proto_rawDesc = "" +
@@ -357,12 +469,21 @@ const file_pkg_protocolbuffers_crud_proto_rawDesc = "" +
 	"\x11DeleteUserRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\",\n" +
 	"\x12DeleteUserResponse\x12\x16\n" +
-	"\x06status\x18\x02 \x01(\tR\x06status2\xca\x01\n" +
+	"\x06status\x18\x02 \x01(\tR\x06status\"r\n" +
+	"\x11UpdateUserRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x1a\n" +
+	"\busername\x18\x02 \x01(\tR\busername\x12\x14\n" +
+	"\x05email\x18\x03 \x01(\tR\x05email\x12\x1b\n" +
+	"\tfull_name\x18\x04 \x01(\tR\bfullName\",\n" +
+	"\x12UpdateUserResponse\x12\x16\n" +
+	"\x06status\x18\x02 \x01(\tR\x06status2\x8f\x02\n" +
 	"\vUserService\x12:\n" +
 	"\aGetUser\x12\x16.crudpb.GetUserRequest\x1a\x17.crudpb.GetUserResponse\x12:\n" +
 	"\aAddUser\x12\x16.crudpb.AddUserRequest\x1a\x17.crudpb.AddUserResponse\x12C\n" +
 	"\n" +
-	"DeleteUser\x12\x19.crudpb.DeleteUserRequest\x1a\x1a.crudpb.DeleteUserResponseB!Z\x1fcrud-grpc-gofiber/crudpb;crudpbb\x06proto3"
+	"DeleteUser\x12\x19.crudpb.DeleteUserRequest\x1a\x1a.crudpb.DeleteUserResponse\x12C\n" +
+	"\n" +
+	"UpdateUser\x12\x19.crudpb.UpdateUserRequest\x1a\x1a.crudpb.UpdateUserResponseB!Z\x1fcrud-grpc-gofiber/crudpb;crudpbb\x06proto3"
 
 var (
 	file_pkg_protocolbuffers_crud_proto_rawDescOnce sync.Once
@@ -376,7 +497,7 @@ func file_pkg_protocolbuffers_crud_proto_rawDescGZIP() []byte {
 	return file_pkg_protocolbuffers_crud_proto_rawDescData
 }
 
-var file_pkg_protocolbuffers_crud_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_pkg_protocolbuffers_crud_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_pkg_protocolbuffers_crud_proto_goTypes = []any{
 	(*GetUserRequest)(nil),     // 0: crudpb.GetUserRequest
 	(*GetUserResponse)(nil),    // 1: crudpb.GetUserResponse
@@ -384,16 +505,20 @@ var file_pkg_protocolbuffers_crud_proto_goTypes = []any{
 	(*AddUserResponse)(nil),    // 3: crudpb.AddUserResponse
 	(*DeleteUserRequest)(nil),  // 4: crudpb.DeleteUserRequest
 	(*DeleteUserResponse)(nil), // 5: crudpb.DeleteUserResponse
+	(*UpdateUserRequest)(nil),  // 6: crudpb.UpdateUserRequest
+	(*UpdateUserResponse)(nil), // 7: crudpb.UpdateUserResponse
 }
 var file_pkg_protocolbuffers_crud_proto_depIdxs = []int32{
 	0, // 0: crudpb.UserService.GetUser:input_type -> crudpb.GetUserRequest
 	2, // 1: crudpb.UserService.AddUser:input_type -> crudpb.AddUserRequest
 	4, // 2: crudpb.UserService.DeleteUser:input_type -> crudpb.DeleteUserRequest
-	1, // 3: crudpb.UserService.GetUser:output_type -> crudpb.GetUserResponse
-	3, // 4: crudpb.UserService.AddUser:output_type -> crudpb.AddUserResponse
-	5, // 5: crudpb.UserService.DeleteUser:output_type -> crudpb.DeleteUserResponse
-	3, // [3:6] is the sub-list for method output_type
-	0, // [0:3] is the sub-list for method input_type
+	6, // 3: crudpb.UserService.UpdateUser:input_type -> crudpb.UpdateUserRequest
+	1, // 4: crudpb.UserService.GetUser:output_type -> crudpb.GetUserResponse
+	3, // 5: crudpb.UserService.AddUser:output_type -> crudpb.AddUserResponse
+	5, // 6: crudpb.UserService.DeleteUser:output_type -> crudpb.DeleteUserResponse
+	7, // 7: crudpb.UserService.UpdateUser:output_type -> crudpb.UpdateUserResponse
+	4, // [4:8] is the sub-list for method output_type
+	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -410,7 +535,7 @@ func file_pkg_protocolbuffers_crud_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pkg_protocolbuffers_crud_proto_rawDesc), len(file_pkg_protocolbuffers_crud_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

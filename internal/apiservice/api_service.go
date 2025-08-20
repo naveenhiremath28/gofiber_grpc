@@ -91,3 +91,45 @@ func DeleteUserHandler(c *fiber.Ctx) error {
 	final_response := models.GetApiResponse("api.delete.user", "OK", resp)
 	return c.JSON(final_response)
 }
+
+func UpdateUserHandler(c *fiber.Ctx) error {
+	id, err := strconv.Atoi(c.Params("id"))
+	fmt.Println("id: ", id)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "invalid user id",
+		})
+	}
+	request := new(models.ApiRequest)
+
+	if err := c.BodyParser(request); err != nil {
+		fmt.Println("error: ", err)
+		res := models.GetApiResponse("api.add", "ERROR", c.Status(400).JSON(fiber.Map{"error": err.Error()}))
+		return c.JSON(res)
+	}
+	var user models.User
+	fmt.Println("\n\n\n\nrequest.Request: ", string(request.Request))
+	if err := json.Unmarshal(request.Request, &user); err != nil {
+		res := models.GetApiResponse("api.add", "ERROR", c.Status(400).JSON(fiber.Map{"error": err.Error()}))
+		return c.JSON(res)
+	}
+	fmt.Println("user: ", user)
+
+	resp, err := grpcclient.Client.UpdateUser(grpcclient.Ctx, &userpb.UpdateUserRequest{
+		Id: int32(id),
+		// Id:       1,
+		Username: user.Username,
+		FullName: user.FullName,
+		Email:    user.Email,
+	})
+	if err != nil {
+		log.Printf("could not get user: %v", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "failed to fetch user",
+		})
+	}
+
+	log.Println("gRPC Client added user: ", user.Username)
+	final_response := models.GetApiResponse("api.add.user", "OK", resp)
+	return c.JSON(final_response)
+}

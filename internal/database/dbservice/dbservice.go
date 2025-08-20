@@ -37,5 +37,25 @@ func DeleteUser(id int32) bool {
 	if result.Error != nil {
 		return false
 	}
+	if result.RowsAffected == 0 {
+		return false
+	}
+	return true
+}
+
+func UpdateUser(userToUpdate models.User) bool {
+	var user models.User
+	result := database.DB.First(&user, userToUpdate.ID)
+	if result.Error != nil {
+		return false
+	}
+	user.Username = userToUpdate.Username
+	user.FullName = userToUpdate.FullName
+	user.Email = userToUpdate.Email
+	user.UpdatedAt = time.Now()
+	final_response := database.DB.Save(&user)
+	if final_response.Error != nil {
+		return false
+	}
 	return true
 }
