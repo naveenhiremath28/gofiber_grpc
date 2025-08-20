@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package crudpb;
+
+option go_package="crud-grpc-gofiber/crudpb;crudpb";
+
+message GetUserRequest {
+    int32 id = 1;
+}
+
+message GetUserResponse {
+    string username = 1;
+    string email = 2;
+    string full_name = 3;
+    string created_at = 4;
+    string updated_at = 5;
+}
+
+
+service UserService {
+  rpc GetUser (GetUserRequest) returns (GetUserResponse);
+}
