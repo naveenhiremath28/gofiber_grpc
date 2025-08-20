@@ -5,8 +5,8 @@ import (
 	"net"
 
 	"crud-grpc-gofiber/internal/database"
-	"crud-grpc-gofiber/internal/database/dbmodels"
 	grcpservice "crud-grpc-gofiber/internal/grpcservice"
+	"crud-grpc-gofiber/internal/models"
 	userpb "crud-grpc-gofiber/pkg/protocolbuffers"
 
 	"google.golang.org/grpc"
@@ -14,7 +14,7 @@ import (
 
 func main() {
 	database.Connect()
-	database.DB.AutoMigrate(&dbmodels.User{})
+	database.DB.AutoMigrate(&models.User{})
 	lis, err := net.Listen("tcp", ":8080")
 	if err != nil {
 		log.Fatalf("listen: %v", err)

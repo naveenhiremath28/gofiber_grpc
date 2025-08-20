@@ -27,3 +27,18 @@ func (s *UserServer) GetUser(ctx context.Context, req *userpb.GetUserRequest) (*
 		UpdatedAt: user[0].UpdatedAt.String(),
 	}, nil
 }
+
+func (s *UserServer) AddUser(ctx context.Context, req *userpb.AddUserRequest) (*userpb.AddUserResponse, error) {
+	log.Printf("Received AddUser request: username=%s, email=%s, fullname=%s",
+		req.Username, req.Email, req.FullName)
+
+	result := dbservice.AddEmployee(req)
+	res := "Failed to Insert Record...!"
+	if result {
+		res = "Successfully Inserted...!"
+	}
+
+	return &userpb.AddUserResponse{
+		Status: res,
+	}, nil
+}

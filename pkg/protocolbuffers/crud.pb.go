@@ -141,6 +141,110 @@ func (x *GetUserResponse) GetUpdatedAt() string {
 	return ""
 }
 
+type AddUserRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	FullName      string                 `protobuf:"bytes,3,opt,name=full_name,json=fullName,proto3" json:"full_name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddUserRequest) Reset() {
+	*x = AddUserRequest{}
+	mi := &file_pkg_protocolbuffers_crud_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddUserRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddUserRequest) ProtoMessage() {}
+
+func (x *AddUserRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_protocolbuffers_crud_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddUserRequest.ProtoReflect.Descriptor instead.
+func (*AddUserRequest) Descriptor() ([]byte, []int) {
+	return file_pkg_protocolbuffers_crud_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *AddUserRequest) GetUsername() string {
+	if x != nil {
+		return x.Username
+	}
+	return ""
+}
+
+func (x *AddUserRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *AddUserRequest) GetFullName() string {
+	if x != nil {
+		return x.FullName
+	}
+	return ""
+}
+
+type AddUserResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Status        string                 `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddUserResponse) Reset() {
+	*x = AddUserResponse{}
+	mi := &file_pkg_protocolbuffers_crud_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddUserResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddUserResponse) ProtoMessage() {}
+
+func (x *AddUserResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_protocolbuffers_crud_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddUserResponse.ProtoReflect.Descriptor instead.
+func (*AddUserResponse) Descriptor() ([]byte, []int) {
+	return file_pkg_protocolbuffers_crud_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *AddUserResponse) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
 var File_pkg_protocolbuffers_crud_proto protoreflect.FileDescriptor
 
 const file_pkg_protocolbuffers_crud_proto_rawDesc = "" +
@@ -155,9 +259,16 @@ const file_pkg_protocolbuffers_crud_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\x04 \x01(\tR\tcreatedAt\x12\x1d\n" +
 	"\n" +
-	"updated_at\x18\x05 \x01(\tR\tupdatedAt2I\n" +
+	"updated_at\x18\x05 \x01(\tR\tupdatedAt\"_\n" +
+	"\x0eAddUserRequest\x12\x1a\n" +
+	"\busername\x18\x01 \x01(\tR\busername\x12\x14\n" +
+	"\x05email\x18\x02 \x01(\tR\x05email\x12\x1b\n" +
+	"\tfull_name\x18\x03 \x01(\tR\bfullName\")\n" +
+	"\x0fAddUserResponse\x12\x16\n" +
+	"\x06status\x18\x02 \x01(\tR\x06status2\x85\x01\n" +
 	"\vUserService\x12:\n" +
-	"\aGetUser\x12\x16.crudpb.GetUserRequest\x1a\x17.crudpb.GetUserResponseB!Z\x1fcrud-grpc-gofiber/crudpb;crudpbb\x06proto3"
+	"\aGetUser\x12\x16.crudpb.GetUserRequest\x1a\x17.crudpb.GetUserResponse\x12:\n" +
+	"\aAddUser\x12\x16.crudpb.AddUserRequest\x1a\x17.crudpb.AddUserResponseB!Z\x1fcrud-grpc-gofiber/crudpb;crudpbb\x06proto3"
 
 var (
 	file_pkg_protocolbuffers_crud_proto_rawDescOnce sync.Once
@@ -171,16 +282,20 @@ func file_pkg_protocolbuffers_crud_proto_rawDescGZIP() []byte {
 	return file_pkg_protocolbuffers_crud_proto_rawDescData
 }
 
-var file_pkg_protocolbuffers_crud_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_pkg_protocolbuffers_crud_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_pkg_protocolbuffers_crud_proto_goTypes = []any{
 	(*GetUserRequest)(nil),  // 0: crudpb.GetUserRequest
 	(*GetUserResponse)(nil), // 1: crudpb.GetUserResponse
+	(*AddUserRequest)(nil),  // 2: crudpb.AddUserRequest
+	(*AddUserResponse)(nil), // 3: crudpb.AddUserResponse
 }
 var file_pkg_protocolbuffers_crud_proto_depIdxs = []int32{
 	0, // 0: crudpb.UserService.GetUser:input_type -> crudpb.GetUserRequest
-	1, // 1: crudpb.UserService.GetUser:output_type -> crudpb.GetUserResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	2, // 1: crudpb.UserService.AddUser:input_type -> crudpb.AddUserRequest
+	1, // 2: crudpb.UserService.GetUser:output_type -> crudpb.GetUserResponse
+	3, // 3: crudpb.UserService.AddUser:output_type -> crudpb.AddUserResponse
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -197,7 +312,7 @@ func file_pkg_protocolbuffers_crud_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pkg_protocolbuffers_crud_proto_rawDesc), len(file_pkg_protocolbuffers_crud_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -4,6 +4,12 @@ package crudpb;
 
 option go_package="crud-grpc-gofiber/crudpb;crudpb";
 
+
+service UserService {
+  rpc GetUser (GetUserRequest) returns (GetUserResponse);
+  rpc AddUser (AddUserRequest) returns (AddUserResponse);
+}
+
 message GetUserRequest {
     int32 id = 1;
 }
@@ -16,7 +22,12 @@ message GetUserResponse {
     string updated_at = 5;
 }
 
+message AddUserRequest {
+  string username = 1;
+  string email = 2;
+  string full_name = 3;
+}
 
-service UserService {
-  rpc GetUser (GetUserRequest) returns (GetUserResponse);
+message AddUserResponse {
+  string status = 2;
 }
