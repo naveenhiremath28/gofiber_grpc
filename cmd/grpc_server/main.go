@@ -15,6 +15,8 @@ import (
 
 type UserServer struct {
 	userpb.UnimplementedUserServiceServer
+	client userpb.UserServiceClient
+	ctx    context.Context
 }
 
 func (s *UserServer) GetUser(ctx context.Context, req *userpb.GetUserRequest) (*userpb.GetUserResponse, error) {
@@ -33,6 +35,7 @@ func (s *UserServer) GetUser(ctx context.Context, req *userpb.GetUserRequest) (*
 		UpdatedAt: user[0].UpdatedAt.String(),
 	}, nil
 }
+
 
 func main() {
 	database.Connect()

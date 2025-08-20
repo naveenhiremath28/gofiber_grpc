@@ -6,24 +6,22 @@ import (
 	userpb "crud-grpc-gofiber/pkg/protocolbuffers"
 	"log"
 
+	"crud-grpc-gofiber/internal/grpcclient"
+
 	"github.com/gofiber/fiber/v2"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
+)
+
+var (
+	Client userpb.UserServiceClient
+	Ctx    context.Context
 )
 
 func main() {
 	app := fiber.New()
-	conn, err := grpc.Dial("localhost:8080",
-		grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != nil {
-		log.Fatalf("Error connecting: %v", err)
+	grpcclient.InitGRPCClient()
+
+	routes.SetupRouter(app)
+	if err := app.Listen(":3000"); err != nil {
+		log.Fatalf("Error starting server: %v", err)
 	}
-
-	client := userpb.NewUserServiceClient(conn)
-
-	ctx := context.Background()
-
-	routes.SetupRouter(app, client, ctx)
-	app.Listen(":3000")
-	log.Println("goFiber service running on - http://localhost:3000/")
 }

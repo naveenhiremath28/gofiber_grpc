@@ -1,10 +1,12 @@
 package service
 
 import (
-	"context"
 	models "crud-grpc-gofiber/internal/models"
 	userpb "crud-grpc-gofiber/pkg/protocolbuffers"
 	"log"
+	"strconv"
+
+	"crud-grpc-gofiber/internal/grpcclient"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -14,27 +16,22 @@ func ServerStatus(ctx *fiber.Ctx) error {
 	return ctx.JSON(res)
 }
 
-// func getUser(client userpb.UserServiceClient, ctx context.Context) error {
-// 	resp, err := client.GetUser(ctx, &userpb.GetUserRequest{Id: 1})
-// 	if err != nil {
-// 		log.Fatalf("could not get order: %v", err)
-// 		return nil
-// 	}
-// 	fmt.Println("resp: ", resp)
-// 	return resp
-// }
-
-func GetUserHandler(client userpb.UserServiceClient, ctx context.Context) fiber.Handler {
-	return func(c *fiber.Ctx) error {
-		resp, err := client.GetUser(ctx, &userpb.GetUserRequest{Id: 1})
-		if err != nil {
-			log.Printf("could not get user: %v", err)
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-				"error": "failed to fetch user",
-			})
-		}
-		log.Println("gRPC Client got user info for user: ", resp.FullName)
-		// Return the response as JSON
-		return c.JSON(resp)
+func GetUserHandler(c *fiber.Ctx) error {
+	id, err := strconv.Atoi(c.Params("id"))
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "invalid user id",
+		})
 	}
+
+	resp, err := grpcclient.Client.GetUser(grpcclient.Ctx, &userpb.GetUserRequest{Id: int32(id)})
+	if err != nil {
+		log.Printf("could not get user: %v", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "failed to fetch user",
+		})
+	}
+
+	log.Println("gRPC Client got user info for user: ", resp.FullName)
+	return c.JSON(resp)
 }
