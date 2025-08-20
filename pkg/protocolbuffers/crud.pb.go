@@ -245,6 +245,94 @@ func (x *AddUserResponse) GetStatus() string {
 	return ""
 }
 
+type DeleteUserRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteUserRequest) Reset() {
+	*x = DeleteUserRequest{}
+	mi := &file_pkg_protocolbuffers_crud_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteUserRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteUserRequest) ProtoMessage() {}
+
+func (x *DeleteUserRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_protocolbuffers_crud_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteUserRequest.ProtoReflect.Descriptor instead.
+func (*DeleteUserRequest) Descriptor() ([]byte, []int) {
+	return file_pkg_protocolbuffers_crud_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *DeleteUserRequest) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type DeleteUserResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Status        string                 `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteUserResponse) Reset() {
+	*x = DeleteUserResponse{}
+	mi := &file_pkg_protocolbuffers_crud_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteUserResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteUserResponse) ProtoMessage() {}
+
+func (x *DeleteUserResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_protocolbuffers_crud_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteUserResponse.ProtoReflect.Descriptor instead.
+func (*DeleteUserResponse) Descriptor() ([]byte, []int) {
+	return file_pkg_protocolbuffers_crud_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *DeleteUserResponse) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
 var File_pkg_protocolbuffers_crud_proto protoreflect.FileDescriptor
 
 const file_pkg_protocolbuffers_crud_proto_rawDesc = "" +
@@ -265,10 +353,16 @@ const file_pkg_protocolbuffers_crud_proto_rawDesc = "" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x12\x1b\n" +
 	"\tfull_name\x18\x03 \x01(\tR\bfullName\")\n" +
 	"\x0fAddUserResponse\x12\x16\n" +
-	"\x06status\x18\x02 \x01(\tR\x06status2\x85\x01\n" +
+	"\x06status\x18\x02 \x01(\tR\x06status\"#\n" +
+	"\x11DeleteUserRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x05R\x02id\",\n" +
+	"\x12DeleteUserResponse\x12\x16\n" +
+	"\x06status\x18\x02 \x01(\tR\x06status2\xca\x01\n" +
 	"\vUserService\x12:\n" +
 	"\aGetUser\x12\x16.crudpb.GetUserRequest\x1a\x17.crudpb.GetUserResponse\x12:\n" +
-	"\aAddUser\x12\x16.crudpb.AddUserRequest\x1a\x17.crudpb.AddUserResponseB!Z\x1fcrud-grpc-gofiber/crudpb;crudpbb\x06proto3"
+	"\aAddUser\x12\x16.crudpb.AddUserRequest\x1a\x17.crudpb.AddUserResponse\x12C\n" +
+	"\n" +
+	"DeleteUser\x12\x19.crudpb.DeleteUserRequest\x1a\x1a.crudpb.DeleteUserResponseB!Z\x1fcrud-grpc-gofiber/crudpb;crudpbb\x06proto3"
 
 var (
 	file_pkg_protocolbuffers_crud_proto_rawDescOnce sync.Once
@@ -282,20 +376,24 @@ func file_pkg_protocolbuffers_crud_proto_rawDescGZIP() []byte {
 	return file_pkg_protocolbuffers_crud_proto_rawDescData
 }
 
-var file_pkg_protocolbuffers_crud_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_pkg_protocolbuffers_crud_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_pkg_protocolbuffers_crud_proto_goTypes = []any{
-	(*GetUserRequest)(nil),  // 0: crudpb.GetUserRequest
-	(*GetUserResponse)(nil), // 1: crudpb.GetUserResponse
-	(*AddUserRequest)(nil),  // 2: crudpb.AddUserRequest
-	(*AddUserResponse)(nil), // 3: crudpb.AddUserResponse
+	(*GetUserRequest)(nil),     // 0: crudpb.GetUserRequest
+	(*GetUserResponse)(nil),    // 1: crudpb.GetUserResponse
+	(*AddUserRequest)(nil),     // 2: crudpb.AddUserRequest
+	(*AddUserResponse)(nil),    // 3: crudpb.AddUserResponse
+	(*DeleteUserRequest)(nil),  // 4: crudpb.DeleteUserRequest
+	(*DeleteUserResponse)(nil), // 5: crudpb.DeleteUserResponse
 }
 var file_pkg_protocolbuffers_crud_proto_depIdxs = []int32{
 	0, // 0: crudpb.UserService.GetUser:input_type -> crudpb.GetUserRequest
 	2, // 1: crudpb.UserService.AddUser:input_type -> crudpb.AddUserRequest
-	1, // 2: crudpb.UserService.GetUser:output_type -> crudpb.GetUserResponse
-	3, // 3: crudpb.UserService.AddUser:output_type -> crudpb.AddUserResponse
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
+	4, // 2: crudpb.UserService.DeleteUser:input_type -> crudpb.DeleteUserRequest
+	1, // 3: crudpb.UserService.GetUser:output_type -> crudpb.GetUserResponse
+	3, // 4: crudpb.UserService.AddUser:output_type -> crudpb.AddUserResponse
+	5, // 5: crudpb.UserService.DeleteUser:output_type -> crudpb.DeleteUserResponse
+	3, // [3:6] is the sub-list for method output_type
+	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -312,7 +410,7 @@ func file_pkg_protocolbuffers_crud_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pkg_protocolbuffers_crud_proto_rawDesc), len(file_pkg_protocolbuffers_crud_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

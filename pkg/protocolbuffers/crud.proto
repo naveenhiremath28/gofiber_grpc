@@ -8,6 +8,7 @@ option go_package="crud-grpc-gofiber/crudpb;crudpb";
 service UserService {
   rpc GetUser (GetUserRequest) returns (GetUserResponse);
   rpc AddUser (AddUserRequest) returns (AddUserResponse);
+  rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse);
 }
 
 message GetUserRequest {
@@ -29,5 +30,13 @@ message AddUserRequest {
 }
 
 message AddUserResponse {
+  string status = 2;
+}
+
+message DeleteUserRequest {
+  int32 id = 1;
+}
+
+message DeleteUserResponse {
   string status = 2;
 }

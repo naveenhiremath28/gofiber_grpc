@@ -24,8 +24,16 @@ func AddEmployee(req *userpb.AddUserRequest) bool {
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
-
 	result := database.DB.Create(&user)
+	if result.Error != nil {
+		return false
+	}
+	return true
+}
+
+func DeleteUser(id int32) bool {
+	var user []models.User
+	result := database.DB.Delete(&user, id)
 	if result.Error != nil {
 		return false
 	}
