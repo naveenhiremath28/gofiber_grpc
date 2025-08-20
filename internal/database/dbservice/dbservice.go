@@ -59,3 +59,12 @@ func UpdateUser(userToUpdate models.User) bool {
 	}
 	return true
 }
+
+func ListUsers() ([]models.User, error) {
+	var user []models.User
+	result := database.DB.Find(&user)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return user, nil
+}

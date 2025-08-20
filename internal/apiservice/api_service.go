@@ -133,3 +133,16 @@ func UpdateUserHandler(c *fiber.Ctx) error {
 	final_response := models.GetApiResponse("api.add.user", "OK", resp)
 	return c.JSON(final_response)
 }
+
+func ListUsersHandler(c *fiber.Ctx) error {
+	resp, err := grpcclient.Client.ListUsers(grpcclient.Ctx, &userpb.ListUsersRequest{})
+	if err != nil {
+		log.Printf("could not get user: %v", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "failed to fetch user",
+		})
+	}
+
+	final_response := models.GetApiResponse("api.get.user", "OK", resp)
+	return c.JSON(final_response)
+}

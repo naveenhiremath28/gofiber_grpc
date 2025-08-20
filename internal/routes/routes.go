@@ -15,4 +15,5 @@ func SetupRouter(app *fiber.App) {
 	v1.Post("/addUser", apiservice.AddUserHandler)
 	v1.Delete("/deleteUser/:id", apiservice.DeleteUserHandler)
 	v1.Patch("/updateUser/:id", apiservice.UpdateUserHandler)
+	v1.Get("/listUsers", apiservice.ListUsersHandler)
 }

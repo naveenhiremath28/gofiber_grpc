@@ -13,7 +13,7 @@ type UserServer struct {
 	userpb.UnimplementedUserServiceServer
 }
 
-func (s *UserServer) GetUser(ctx context.Context, req *userpb.GetUserRequest) (*userpb.GetUserResponse, error) {
+func (s *UserServer) GetUser(ctx context.Context, req *userpb.GetUserRequest) (*userpb.User, error) {
 	log.Println("gRPC Server getting user info for Id: ", req.Id)
 
 	user, err := dbservice.GetUser(req.Id)
@@ -21,7 +21,7 @@ func (s *UserServer) GetUser(ctx context.Context, req *userpb.GetUserRequest) (*
 		log.Println("Error fetching users:", err)
 		return nil, err
 	}
-	return &userpb.GetUserResponse{
+	return &userpb.User{
 		Username:  user[0].Username,
 		Email:     user[0].Email,
 		FullName:  user[0].FullName,
@@ -78,4 +78,25 @@ func (s *UserServer) UpdateUser(ctx context.Context, req *userpb.UpdateUserReque
 	return &userpb.UpdateUserResponse{
 		Status: res,
 	}, nil
+}
+
+func (s *UserServer) ListUsers(ctx context.Context, req *userpb.ListUsersRequest) (*userpb.ListUserResponse, error) {
+	users, err := dbservice.ListUsers()
+	if err != nil {
+		log.Println("Error fetching users:", err)
+		return nil, err
+	}
+
+	var pbUsers []*userpb.User
+	for _, u := range users {
+		pbUsers = append(pbUsers, &userpb.User{
+			Username:  u.Username,
+			Email:     u.Email,
+			FullName:  u.FullName,
+			CreatedAt: u.CreatedAt.String(),
+			UpdatedAt: u.UpdatedAt.String(),
+		})
+	}
+
+	return &userpb.ListUserResponse{Users: pbUsers}, nil
 }

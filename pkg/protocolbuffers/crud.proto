@@ -6,17 +6,18 @@ option go_package="crud-grpc-gofiber/crudpb;crudpb";
 
 
 service UserService {
-  rpc GetUser (GetUserRequest) returns (GetUserResponse);
+  rpc GetUser (GetUserRequest) returns (User);
   rpc AddUser (AddUserRequest) returns (AddUserResponse);
   rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse);
   rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
+  rpc ListUsers (ListUsersRequest) returns (ListUserResponse);
 }
 
 message GetUserRequest {
     int32 id = 1;
 }
 
-message GetUserResponse {
+message User {
     string username = 1;
     string email = 2;
     string full_name = 3;
@@ -51,4 +52,10 @@ message UpdateUserRequest {
 
 message UpdateUserResponse {
   string status = 2;
+}
+
+message ListUsersRequest {}
+
+message ListUserResponse {
+  repeated User users = 1;
 }
