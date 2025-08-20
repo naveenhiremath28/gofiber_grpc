@@ -1,22 +1,14 @@
-package main
+package grcpservice
 
 import (
 	"context"
-	"log"
-	"net"
-
-	"crud-grpc-gofiber/internal/database"
-	"crud-grpc-gofiber/internal/database/dbmodels"
 	"crud-grpc-gofiber/internal/database/dbservice"
 	userpb "crud-grpc-gofiber/pkg/protocolbuffers"
-
-	"google.golang.org/grpc"
+	"log"
 )
 
 type UserServer struct {
 	userpb.UnimplementedUserServiceServer
-	client userpb.UserServiceClient
-	ctx    context.Context
 }
 
 func (s *UserServer) GetUser(ctx context.Context, req *userpb.GetUserRequest) (*userpb.GetUserResponse, error) {
@@ -34,21 +26,4 @@ func (s *UserServer) GetUser(ctx context.Context, req *userpb.GetUserRequest) (*
 		CreatedAt: user[0].CreatedAt.String(),
 		UpdatedAt: user[0].UpdatedAt.String(),
 	}, nil
-}
-
-
-func main() {
-	database.Connect()
-	database.DB.AutoMigrate(&dbmodels.User{})
-	lis, err := net.Listen("tcp", ":8080")
-	if err != nil {
-		log.Fatalf("listen: %v", err)
-	}
-	grpcServer := grpc.NewServer()
-	userpb.RegisterUserServiceServer(grpcServer, &UserServer{})
-
-	log.Println("Server listening to port: http://localhost:8080/")
-	if err := grpcServer.Serve(lis); err != nil {
-		log.Fatalf("serve: %v", err)
-	}
 }

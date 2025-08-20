@@ -1,4 +1,4 @@
-package service
+package apiservice
 
 import (
 	models "crud-grpc-gofiber/internal/models"
@@ -33,5 +33,6 @@ func GetUserHandler(c *fiber.Ctx) error {
 	}
 
 	log.Println("gRPC Client got user info for user: ", resp.FullName)
-	return c.JSON(resp)
+	final_response := models.GetApiResponse("api.get.user", "OK", resp)
+	return c.JSON(final_response)
 }
