@@ -5,7 +5,6 @@ import (
 	"crud-grpc-gofiber/internal/database/dbservice"
 	"crud-grpc-gofiber/internal/models"
 	userpb "crud-grpc-gofiber/pkg/protocolbuffers"
-	"fmt"
 	"log"
 )
 
@@ -31,8 +30,7 @@ func (s *UserServer) GetUser(ctx context.Context, req *userpb.GetUserRequest) (*
 }
 
 func (s *UserServer) AddUser(ctx context.Context, req *userpb.AddUserRequest) (*userpb.AddUserResponse, error) {
-	fmt.Println("\n\n\nreq: ", req)
-	log.Printf("\n\n\nReceived AddUser request: username=%s, email=%s, fullname=%s",
+	log.Printf("gRPC server adding the user for request: username=%s, email=%s, fullname=%s",
 		req.Username, req.Email, req.FullName)
 
 	result := dbservice.AddEmployee(req)
@@ -61,18 +59,17 @@ func (s *UserServer) DeleteUser(ctx context.Context, req *userpb.DeleteUserReque
 }
 
 func (s *UserServer) UpdateUser(ctx context.Context, req *userpb.UpdateUserRequest) (*userpb.UpdateUserResponse, error) {
-	fmt.Println("\n\n\nreq: ", req)
-	log.Printf("\n\n\nReceived AddUser request: username=%s, email=%s, fullname=%s",
+	log.Printf("gRPC server updating the user for request: username=%s, email=%s, fullname=%s",
 		req.Username, req.Email, req.FullName)
 	var user models.User
-	user.ID = int(req.Id)
+	user.ID = req.Id
 	user.Username = req.Username
 	user.Email = req.Email
 	user.FullName = req.FullName
 	result := dbservice.UpdateUser(user)
-	res := "Failed to Insert Record...!"
+	res := "Failed to update Record...!"
 	if result {
-		res = "Successfully Inserted Record...!"
+		res = "Successfully Updated Record...!"
 	}
 
 	return &userpb.UpdateUserResponse{

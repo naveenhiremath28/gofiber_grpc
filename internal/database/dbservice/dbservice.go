@@ -7,9 +7,9 @@ import (
 	"time"
 )
 
-func GetUser(id int32) ([]models.User, error) {
+func GetUser(id string) ([]models.User, error) {
 	var user []models.User
-	result := database.DB.First(&user, id)
+	result := database.DB.First(&user, "id = ?", id)
 	if result.Error != nil {
 		return nil, result.Error
 	}
@@ -31,9 +31,9 @@ func AddEmployee(req *userpb.AddUserRequest) bool {
 	return true
 }
 
-func DeleteUser(id int32) bool {
+func DeleteUser(id string) bool {
 	var user []models.User
-	result := database.DB.Delete(&user, id)
+	result := database.DB.Delete(&user, "id = ?", id)
 	if result.Error != nil {
 		return false
 	}
@@ -45,7 +45,7 @@ func DeleteUser(id int32) bool {
 
 func UpdateUser(userToUpdate models.User) bool {
 	var user models.User
-	result := database.DB.First(&user, userToUpdate.ID)
+	result := database.DB.First(&user, "id = ?", userToUpdate.ID)
 	if result.Error != nil {
 		return false
 	}

@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"strconv"
 
 	"crud-grpc-gofiber/internal/grpcclient"
 
@@ -19,14 +18,9 @@ func ServerStatus(ctx *fiber.Ctx) error {
 }
 
 func GetUserHandler(c *fiber.Ctx) error {
-	id, err := strconv.Atoi(c.Params("id"))
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": "invalid user id",
-		})
-	}
+	id := c.Params("id")
 
-	resp, err := grpcclient.Client.GetUser(grpcclient.Ctx, &userpb.GetUserRequest{Id: int32(id)})
+	resp, err := grpcclient.Client.GetUser(grpcclient.Ctx, &userpb.GetUserRequest{Id: id})
 	if err != nil {
 		log.Printf("could not get user: %v", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -47,12 +41,10 @@ func AddUserHandler(c *fiber.Ctx) error {
 		return c.JSON(res)
 	}
 	var user models.User
-	fmt.Println("\n\n\n\nrequest.Request: ", string(request.Request))
 	if err := json.Unmarshal(request.Request, &user); err != nil {
 		res := models.GetApiResponse("api.add", "ERROR", c.Status(400).JSON(fiber.Map{"error": err.Error()}))
 		return c.JSON(res)
 	}
-	fmt.Println("user: ", user)
 
 	resp, err := grpcclient.Client.AddUser(grpcclient.Ctx, &userpb.AddUserRequest{
 		Username: user.Username,
@@ -72,14 +64,9 @@ func AddUserHandler(c *fiber.Ctx) error {
 }
 
 func DeleteUserHandler(c *fiber.Ctx) error {
-	id, err := strconv.Atoi(c.Params("id"))
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": "invalid user id",
-		})
-	}
+	id := c.Params("id")
 
-	resp, err := grpcclient.Client.DeleteUser(grpcclient.Ctx, &userpb.DeleteUserRequest{Id: int32(id)})
+	resp, err := grpcclient.Client.DeleteUser(grpcclient.Ctx, &userpb.DeleteUserRequest{Id: id})
 	if err != nil {
 		log.Printf("could not get user: %v", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -93,13 +80,7 @@ func DeleteUserHandler(c *fiber.Ctx) error {
 }
 
 func UpdateUserHandler(c *fiber.Ctx) error {
-	id, err := strconv.Atoi(c.Params("id"))
-	fmt.Println("id: ", id)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": "invalid user id",
-		})
-	}
+	id := c.Params("id")
 	request := new(models.ApiRequest)
 
 	if err := c.BodyParser(request); err != nil {
@@ -108,16 +89,13 @@ func UpdateUserHandler(c *fiber.Ctx) error {
 		return c.JSON(res)
 	}
 	var user models.User
-	fmt.Println("\n\n\n\nrequest.Request: ", string(request.Request))
 	if err := json.Unmarshal(request.Request, &user); err != nil {
 		res := models.GetApiResponse("api.add", "ERROR", c.Status(400).JSON(fiber.Map{"error": err.Error()}))
 		return c.JSON(res)
 	}
-	fmt.Println("user: ", user)
 
 	resp, err := grpcclient.Client.UpdateUser(grpcclient.Ctx, &userpb.UpdateUserRequest{
-		Id: int32(id),
-		// Id:       1,
+		Id: id,
 		Username: user.Username,
 		FullName: user.FullName,
 		Email:    user.Email,
@@ -129,8 +107,8 @@ func UpdateUserHandler(c *fiber.Ctx) error {
 		})
 	}
 
-	log.Println("gRPC Client added user: ", user.Username)
-	final_response := models.GetApiResponse("api.add.user", "OK", resp)
+	log.Println("gRPC Client updated user: ", user.Username)
+	final_response := models.GetApiResponse("api.update.user", "OK", resp)
 	return c.JSON(final_response)
 }
 
@@ -143,6 +121,6 @@ func ListUsersHandler(c *fiber.Ctx) error {
 		})
 	}
 
-	final_response := models.GetApiResponse("api.get.user", "OK", resp)
+	final_response := models.GetApiResponse("api.list.user", "OK", resp)
 	return c.JSON(final_response)
 }

@@ -23,7 +23,7 @@ const (
 
 type GetUserRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -58,11 +58,11 @@ func (*GetUserRequest) Descriptor() ([]byte, []int) {
 	return file_pkg_protocolbuffers_crud_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *GetUserRequest) GetId() int32 {
+func (x *GetUserRequest) GetId() string {
 	if x != nil {
 		return x.Id
 	}
-	return 0
+	return ""
 }
 
 type User struct {
@@ -247,7 +247,7 @@ func (x *AddUserResponse) GetStatus() string {
 
 type DeleteUserRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -282,11 +282,11 @@ func (*DeleteUserRequest) Descriptor() ([]byte, []int) {
 	return file_pkg_protocolbuffers_crud_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *DeleteUserRequest) GetId() int32 {
+func (x *DeleteUserRequest) GetId() string {
 	if x != nil {
 		return x.Id
 	}
-	return 0
+	return ""
 }
 
 type DeleteUserResponse struct {
@@ -335,7 +335,7 @@ func (x *DeleteUserResponse) GetStatus() string {
 
 type UpdateUserRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Username      string                 `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
 	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
 	FullName      string                 `protobuf:"bytes,4,opt,name=full_name,json=fullName,proto3" json:"full_name,omitempty"`
@@ -373,11 +373,11 @@ func (*UpdateUserRequest) Descriptor() ([]byte, []int) {
 	return file_pkg_protocolbuffers_crud_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *UpdateUserRequest) GetId() int32 {
+func (x *UpdateUserRequest) GetId() string {
 	if x != nil {
 		return x.Id
 	}
-	return 0
+	return ""
 }
 
 func (x *UpdateUserRequest) GetUsername() string {
@@ -531,7 +531,7 @@ const file_pkg_protocolbuffers_crud_proto_rawDesc = "" +
 	"\n" +
 	"\x1epkg/protocolbuffers/crud.proto\x12\x06crudpb\" \n" +
 	"\x0eGetUserRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x05R\x02id\"\x93\x01\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\"\x93\x01\n" +
 	"\x04User\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x14\n" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x12\x1b\n" +
@@ -547,11 +547,11 @@ const file_pkg_protocolbuffers_crud_proto_rawDesc = "" +
 	"\x0fAddUserResponse\x12\x16\n" +
 	"\x06status\x18\x02 \x01(\tR\x06status\"#\n" +
 	"\x11DeleteUserRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x05R\x02id\",\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\",\n" +
 	"\x12DeleteUserResponse\x12\x16\n" +
 	"\x06status\x18\x02 \x01(\tR\x06status\"r\n" +
 	"\x11UpdateUserRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x1a\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1a\n" +
 	"\busername\x18\x02 \x01(\tR\busername\x12\x14\n" +
 	"\x05email\x18\x03 \x01(\tR\x05email\x12\x1b\n" +
 	"\tfull_name\x18\x04 \x01(\tR\bfullName\",\n" +
